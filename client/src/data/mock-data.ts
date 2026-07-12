@@ -1,0 +1,266 @@
+import type {
+  DashboardData,
+  Driver,
+  Expense,
+  FuelLog,
+  MaintenanceRecord,
+  ReportsData,
+  Trip,
+  User,
+  Vehicle,
+} from "@/types/transit";
+
+export const currentUser: User = {
+  id: "user-demo",
+  name: "Dhruvil Patel",
+  email: "fleet.manager@transitops.local",
+  role: "FLEET_MANAGER",
+};
+
+export const vehicles: Vehicle[] = [
+  {
+    id: "veh-1",
+    registration: "GJ-01-VN-0005",
+    name: "Van-05",
+    type: "Van",
+    region: "Ahmedabad",
+    capacity: 500,
+    odometer: 42180,
+    purchaseCost: 850000,
+    status: "AVAILABLE",
+  },
+  {
+    id: "veh-2",
+    registration: "MH-12-TR-2026",
+    name: "Tata Ultra 1014",
+    type: "Truck",
+    region: "Pune",
+    capacity: 4200,
+    odometer: 88240,
+    purchaseCost: 2450000,
+    status: "ON_TRIP",
+  },
+  {
+    id: "veh-3",
+    registration: "DL-08-RF-4411",
+    name: "Reefer-11",
+    type: "Refrigerated",
+    region: "Delhi",
+    capacity: 1500,
+    odometer: 63120,
+    purchaseCost: 1850000,
+    status: "IN_SHOP",
+  },
+  {
+    id: "veh-4",
+    registration: "KA-03-BS-7102",
+    name: "Bus-7102",
+    type: "Bus",
+    region: "Bengaluru",
+    capacity: 1200,
+    odometer: 120300,
+    purchaseCost: 3100000,
+    status: "AVAILABLE",
+  },
+];
+
+export const drivers: Driver[] = [
+  {
+    id: "drv-1",
+    name: "Alex Fernandes",
+    phone: "+91 98765 12001",
+    licenseNumber: "GJ2026ALEX",
+    licenseCategory: "LMV",
+    expiryDate: "2027-08-18",
+    safetyScore: 94,
+    status: "AVAILABLE",
+  },
+  {
+    id: "drv-2",
+    name: "Meera Shah",
+    phone: "+91 98765 12002",
+    licenseNumber: "MH2026MEERA",
+    licenseCategory: "HMV",
+    expiryDate: "2026-12-02",
+    safetyScore: 88,
+    status: "ON_TRIP",
+  },
+  {
+    id: "drv-3",
+    name: "Rahul Nair",
+    phone: "+91 98765 12003",
+    licenseNumber: "KA2026RAHUL",
+    licenseCategory: "Transport",
+    expiryDate: "2026-09-20",
+    safetyScore: 72,
+    status: "OFF_DUTY",
+  },
+];
+
+export const trips: Trip[] = [
+  {
+    id: "trip-1",
+    vehicleId: "veh-2",
+    driverId: "drv-2",
+    source: "Pune Warehouse",
+    destination: "Mumbai Central Hub",
+    cargoWeight: 3200,
+    distance: 156,
+    revenue: 42000,
+    status: "DISPATCHED",
+    vehicle: vehicles[1],
+    driver: drivers[1],
+  },
+  {
+    id: "trip-2",
+    vehicleId: "veh-1",
+    driverId: "drv-1",
+    source: "Ahmedabad DC",
+    destination: "Vadodara Retail",
+    cargoWeight: 450,
+    distance: 112,
+    revenue: 18000,
+    status: "DRAFT",
+    vehicle: vehicles[0],
+    driver: drivers[0],
+  },
+];
+
+export const maintenance: MaintenanceRecord[] = [
+  {
+    id: "mnt-1",
+    vehicleId: "veh-3",
+    description: "Oil change and cooling unit inspection",
+    cost: 14200,
+    status: "IN_PROGRESS",
+    vehicle: vehicles[2],
+  },
+];
+
+export const fuelLogs: FuelLog[] = [
+  {
+    id: "fuel-1",
+    vehicleId: "veh-2",
+    tripId: "trip-1",
+    liters: 62,
+    cost: 6080,
+    mileage: 8.2,
+    loggedAt: "2026-07-12",
+    vehicle: vehicles[1],
+  },
+  {
+    id: "fuel-2",
+    vehicleId: "veh-1",
+    liters: 24,
+    cost: 2350,
+    mileage: 12.6,
+    loggedAt: "2026-07-10",
+    vehicle: vehicles[0],
+  },
+];
+
+export const expenses: Expense[] = [
+  {
+    id: "exp-1",
+    vehicleId: "veh-2",
+    category: "Toll",
+    amount: 1850,
+    notes: "Expressway toll",
+    expenseDate: "2026-07-12",
+    vehicle: vehicles[1],
+  },
+  {
+    id: "exp-2",
+    vehicleId: "veh-3",
+    category: "Maintenance",
+    amount: 14200,
+    notes: "Cooling unit service",
+    expenseDate: "2026-07-11",
+    vehicle: vehicles[2],
+  },
+];
+
+export const dashboard: DashboardData = {
+  kpis: {
+    totalVehicles: vehicles.length,
+    activeVehicles: 1,
+    availableVehicles: 2,
+    vehiclesInMaintenance: 1,
+    activeTrips: 1,
+    pendingTrips: 1,
+    driversOnDuty: 1,
+    fleetUtilization: 25,
+  },
+  breakdowns: {
+    vehicleTypes: [
+      { type: "Van", count: 1 },
+      { type: "Truck", count: 1 },
+      { type: "Refrigerated", count: 1 },
+      { type: "Bus", count: 1 },
+    ],
+    regions: [
+      { region: "Ahmedabad", count: 1 },
+      { region: "Pune", count: 1 },
+      { region: "Delhi", count: 1 },
+      { region: "Bengaluru", count: 1 },
+    ],
+    statuses: [
+      { status: "AVAILABLE", count: 2 },
+      { status: "ON_TRIP", count: 1 },
+      { status: "IN_SHOP", count: 1 },
+      { status: "RETIRED", count: 0 },
+    ],
+  },
+};
+
+export const reports: ReportsData = {
+  summary: {
+    vehicleCount: vehicles.length,
+    totalDistance: 1264,
+    totalFuelLiters: 168,
+    fuelCost: 16430,
+    maintenanceCost: 14200,
+    expenseCost: 16050,
+    operationalCost: 46680,
+    revenue: 94000,
+    averageFuelEfficiency: 7.52,
+  },
+  vehicles: [
+    {
+      vehicleId: "veh-1",
+      registration: "GJ-01-VN-0005",
+      name: "Van-05",
+      type: "Van",
+      region: "Ahmedabad",
+      status: "AVAILABLE",
+      acquisitionCost: 850000,
+      totalDistance: 480,
+      totalFuelLiters: 42,
+      fuelCost: 4110,
+      maintenanceCost: 0,
+      expenseCost: 0,
+      operationalCost: 4110,
+      revenue: 30000,
+      fuelEfficiency: 11.43,
+      roi: 3.05,
+    },
+    {
+      vehicleId: "veh-2",
+      registration: "MH-12-TR-2026",
+      name: "Tata Ultra 1014",
+      type: "Truck",
+      region: "Pune",
+      status: "ON_TRIP",
+      acquisitionCost: 2450000,
+      totalDistance: 784,
+      totalFuelLiters: 126,
+      fuelCost: 12320,
+      maintenanceCost: 0,
+      expenseCost: 1850,
+      operationalCost: 14170,
+      revenue: 64000,
+      fuelEfficiency: 6.22,
+      roi: 2.11,
+    },
+  ],
+};
